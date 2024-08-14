@@ -8,6 +8,8 @@ import { SubjectModule } from './subject/subject.module';
 import { Subject } from './subject/entities/subject.model';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/entities/order.model';
+import { SpecimenModule } from './specimen/specimen.module';
+import { Specimen } from './specimen/entities/specimen.model';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { Order } from './order/entities/order.model';
           database: 'example',
           synchronize: true,
           autoLoadModels: true,
-          models: [Subject, Order, Observation],
+          models: [Subject, Order, Observation, Specimen],
         };
 
         return options;
@@ -32,6 +34,7 @@ import { Order } from './order/entities/order.model';
     ObservationModule,
     SubjectModule,
     OrderModule,
+    SpecimenModule,
   ],
   controllers: [AppController],
   providers: [AppService],
