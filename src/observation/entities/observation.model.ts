@@ -1,16 +1,10 @@
-import {
-  Column,
-  DataType,
-  Model,
-  PrimaryKey,
-  Table,
-} from 'sequelize-typescript';
-import { Observation as FhirObservation } from 'fhir/r4';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import type { Observation as FhirObservation } from 'fhir/r4';
 
 @Table
 export class Observation extends Model {
-  @PrimaryKey
   @Column({
+    primaryKey: true,
     type: DataType.UUID,
     defaultValue: DataType.UUIDV4,
   })
