@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { ObservationModule } from './observation/observation.module';
 import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Observation } from './observation/entities/observation.model';
+import { SubjectModule } from './subject/subject.module';
+import { Subject } from './subject/entities/subject.model';
 
 @Module({
   imports: [
@@ -19,13 +21,14 @@ import { Observation } from './observation/entities/observation.model';
           database: 'example',
           synchronize: true,
           autoLoadModels: true,
-          models: [Observation],
+          models: [Observation, Subject],
         };
 
         return options;
       },
     }),
     ObservationModule,
+    SubjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

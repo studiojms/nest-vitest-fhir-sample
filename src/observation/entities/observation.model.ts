@@ -1,5 +1,13 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import type { Observation as FhirObservation } from 'fhir/r4';
+import { Subject } from 'src/subject/entities/subject.model';
 
 @Table
 export class Observation extends Model {
@@ -15,4 +23,14 @@ export class Observation extends Model {
     allowNull: false,
   })
   content: FhirObservation;
+
+  @ForeignKey(() => Subject)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+  })
+  subjectId: string;
+
+  @BelongsTo(() => Subject)
+  subject: Subject;
 }
