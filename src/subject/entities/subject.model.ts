@@ -1,5 +1,13 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import {
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Observation } from 'src/observation/entities/observation.model';
+import { Order } from 'src/order/entities/order.model';
 
 @Table
 export class Subject extends Model {
@@ -18,4 +26,11 @@ export class Subject extends Model {
 
   @HasMany(() => Observation)
   observations: Observation[];
+
+  @ForeignKey(() => Order)
+  @Column({
+    type: DataType.UUID,
+    allowNull: true,
+  })
+  orderId?: string | null;
 }

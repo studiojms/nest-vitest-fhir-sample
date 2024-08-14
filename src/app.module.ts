@@ -6,6 +6,8 @@ import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Observation } from './observation/entities/observation.model';
 import { SubjectModule } from './subject/subject.module';
 import { Subject } from './subject/entities/subject.model';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/entities/order.model';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { Subject } from './subject/entities/subject.model';
           database: 'example',
           synchronize: true,
           autoLoadModels: true,
-          models: [Observation, Subject],
+          models: [Subject, Order, Observation],
         };
 
         return options;
@@ -29,6 +31,7 @@ import { Subject } from './subject/entities/subject.model';
     }),
     ObservationModule,
     SubjectModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
