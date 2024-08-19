@@ -6,8 +6,8 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { Order } from 'src/order/entities/order.model';
-import { Subject } from 'src/subject/entities/subject.model';
+import { Order } from '../../order/entities/order.model';
+import { Subject } from '../../subject/entities/subject.model';
 import type { Specimen as FhirSpecimen } from 'fhir/r4';
 
 @Table

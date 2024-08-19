@@ -1,1 +1,3 @@
-export class CreateSubjectDto {}
+export class CreateSubjectDto {
+  description: string;
+}

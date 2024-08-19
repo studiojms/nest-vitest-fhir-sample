@@ -11,7 +11,7 @@ export class ObservationService {
   ) {}
 
   create(createObservationDto: CreateObservationDto) {
-    return this.observationModel.create({ ...createObservationDto });
+    return this.observationModel.create({ ...createObservationDto } as any);
   }
 
   findAll() {

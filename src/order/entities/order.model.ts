@@ -1,6 +1,6 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { Specimen } from 'src/specimen/entities/specimen.model';
-import { Subject } from 'src/subject/entities/subject.model';
+import { Specimen } from '../../specimen/entities/specimen.model';
+import { Subject } from '../../subject/entities/subject.model';
 
 @Table
 export class Order extends Model {
@@ -11,9 +11,13 @@ export class Order extends Model {
   })
   id: string;
 
-  @HasMany(() => Specimen)
+  @HasMany(() => Specimen, {
+    foreignKey: 'orderId',
+  })
   specimen: Specimen[];
 
-  @HasMany(() => Subject)
+  @HasMany(() => Subject, {
+    foreignKey: 'orderId',
+  })
   subjects: Subject[];
 }

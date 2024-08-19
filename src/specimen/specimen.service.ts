@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSpecimanDto } from './dto/create-speciman.dto';
 import { UpdateSpecimanDto } from './dto/update-speciman.dto';
+import { Specimen } from './entities/specimen.model';
+import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class SpecimenService {
+  constructor(
+    @InjectModel(Specimen)
+    private readonly specimenModel: typeof Specimen,
+  ) {}
+
   create(createSpecimanDto: CreateSpecimanDto) {
-    return 'This action adds a new speciman';
+    return this.specimenModel.create({ ...createSpecimanDto });
   }
 
   findAll() {
-    return `This action returns all specimen`;
+    return this.specimenModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} speciman`;
+  findOne(id: string) {
+    return this.specimenModel.findByPk(id);
   }
 
-  update(id: number, updateSpecimanDto: UpdateSpecimanDto) {
-    return `This action updates a #${id} speciman`;
+  update(id: string, updateSpecimanDto: UpdateSpecimanDto) {
+    return this.specimenModel.update(updateSpecimanDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} speciman`;
+  remove(id: string) {
+    return this.specimenModel.destroy({ where: { id } });
   }
 }

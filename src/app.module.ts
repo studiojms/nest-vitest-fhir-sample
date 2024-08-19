@@ -15,17 +15,17 @@ import { Specimen } from './specimen/entities/specimen.model';
   imports: [
     SequelizeModule.forRootAsync({
       useFactory: async () => {
-        console.log({ user: process.env.PG_USERNAME });
         const options: SequelizeModuleOptions = {
           dialect: 'postgres',
-          host: 'localhost',
-          port: 5432,
-          username: 'user',
-          password: 'pass',
-          database: 'example',
-          synchronize: true,
+          host: process.env.host || 'localhost',
+          port: parseInt(process.env.port, 10) || 5432,
+          database: process.env.database || 'example',
+          username: process.env.username || 'user',
+          password: process.env.password || 'pass',
+          logging: true,
           autoLoadModels: true,
-          models: [Subject, Order, Observation, Specimen],
+          synchronize: true,
+          models: [Subject, Observation, Specimen, Order],
         };
 
         return options;

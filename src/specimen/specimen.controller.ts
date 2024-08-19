@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SpecimenService } from './specimen.service';
 import { CreateSpecimanDto } from './dto/create-speciman.dto';
 import { UpdateSpecimanDto } from './dto/update-speciman.dto';
@@ -19,16 +27,19 @@ export class SpecimenController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.specimenService.findOne(+id);
+    return this.specimenService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpecimanDto: UpdateSpecimanDto) {
-    return this.specimenService.update(+id, updateSpecimanDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateSpecimanDto: UpdateSpecimanDto,
+  ) {
+    return this.specimenService.update(id, updateSpecimanDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.specimenService.remove(+id);
+    return this.specimenService.remove(id);
   }
 }

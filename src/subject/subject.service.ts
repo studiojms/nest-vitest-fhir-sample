@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { Subject } from './entities/subject.model';
+import { Observation } from '../observation/entities/observation.model';
 
 @Injectable()
 export class SubjectService {
+  constructor(
+    @InjectModel(Subject)
+    private readonly subjectModel: typeof Subject,
+  ) {}
   create(createSubjectDto: CreateSubjectDto) {
-    return 'This action adds a new subject';
+    return this.subjectModel.create({ ...createSubjectDto });
   }
 
   findAll() {
-    return `This action returns all subject`;
+    return this.subjectModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} subject`;
+  async findOne(id: string) {
+    const subject = await this.subjectModel.findOne({
+      where: {
+        id,
+      },
+      include: [Observation],
+    });
+
+    if (subject.observations.length === 0) {
+      throw new Error('Subject not found');
+    }
+
+    return subject;
   }
 
-  update(id: number, updateSubjectDto: UpdateSubjectDto) {
-    return `This action updates a #${id} subject`;
+  update(id: string, updateSubjectDto: UpdateSubjectDto) {
+    return this.subjectModel.update(updateSubjectDto, { where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} subject`;
+  remove(id: string) {
+    return this.subjectModel.destroy({ where: { id } });
   }
 }

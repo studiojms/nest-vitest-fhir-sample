@@ -7,10 +7,10 @@ import {
   Table,
 } from 'sequelize-typescript';
 import type { Observation as FhirObservation } from 'fhir/r4';
-import { Subject } from 'src/subject/entities/subject.model';
+import { Subject } from '../../subject/entities/subject.model';
 
 @Table
-export class Observation extends Model {
+export class Observation extends Model<Observation> {
   @Column({
     primaryKey: true,
     type: DataType.UUID,
@@ -24,13 +24,16 @@ export class Observation extends Model {
   })
   content: FhirObservation;
 
+  @BelongsTo(() => Subject, {
+    foreignKey: 'subjectId',
+    targetKey: 'id',
+  })
+  subject: Subject;
+
   @ForeignKey(() => Subject)
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
   subjectId: string;
-
-  @BelongsTo(() => Subject)
-  subject: Subject;
 }

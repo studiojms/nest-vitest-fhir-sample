@@ -6,11 +6,11 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Observation } from 'src/observation/entities/observation.model';
-import { Order } from 'src/order/entities/order.model';
+import { Observation } from '../../observation/entities/observation.model';
+import { Order } from '../../order/entities/order.model';
 
 @Table
-export class Subject extends Model {
+export class Subject extends Model<Subject> {
   @Column({
     primaryKey: true,
     type: DataType.UUID,
@@ -24,7 +24,9 @@ export class Subject extends Model {
   })
   description: string;
 
-  @HasMany(() => Observation)
+  @HasMany(() => Observation, {
+    foreignKey: 'subjectId',
+  })
   observations: Observation[];
 
   @ForeignKey(() => Order)
