@@ -13,5 +13,14 @@ export default defineConfig({
     root: './',
     hookTimeout: 360000,
   },
-  plugins: [swc.vite()],
+  plugins: [
+    swc.vite({
+      module: { type: 'es6' },
+      jsc: {
+        transform: {
+          useDefineForClassFields: false,
+        },
+      },
+    }),
+  ],
 });
